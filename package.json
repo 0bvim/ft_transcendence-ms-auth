@@ -19,7 +19,7 @@
     "db:reset": "prisma migrate reset"
   },
   "keywords": ["auth", "microservice", "fastify", "jwt", "google-auth"],
-  "author": "Your Name",
+  "author": "Vinicius Pereira",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/0bvim/ft_transcendence-ms-auth/issues"

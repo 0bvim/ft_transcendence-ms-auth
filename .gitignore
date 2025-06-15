@@ -41,3 +41,5 @@ dist/
 *.log
 coverage/
 .nyc_output/
+
+/src/generated/prisma

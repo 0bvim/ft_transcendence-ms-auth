@@ -34,3 +34,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+dist/
+*.db
+*.db-journal
+*.log
+coverage/
+.nyc_output/

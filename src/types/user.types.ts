@@ -1,4 +1,4 @@
-import type { User } from "@prisma/client";
+import type { User } from '@prisma/client';
 
 export interface UserProfile {
   id: string;
@@ -26,12 +26,14 @@ export interface CreateUserData {
 export interface UpdateUserData {
   name?: string;
   nickname?: string;
+  googleId?: string;
+  password?: string;
   avatar?: string;
   isVerified?: boolean;
   isActive?: boolean;
 }
 
-export interface UserWithoutPassword extends Omit<User, "password"> {}
+export interface UserWithoutPassword extends Omit<User, 'password'> {}
 
 export interface UpdateProfileRequest {
   name?: string;

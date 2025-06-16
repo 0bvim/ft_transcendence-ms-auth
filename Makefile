@@ -23,6 +23,17 @@ migrations:
 	@npm run db:migrate
 
 # generate migration files based on prisma schema changes
+.PHONY: gen-migrate-files
 gen-migrate-files:
 	@echo "Generating migration files..."
 	@npx prisma migrate dev --create-only
+
+.PHONY: lint
+lint:
+	@echo "Running linter..."
+	@npm run lint
+
+.PHONY: lint-fix
+lint-fix:
+	@echo "Running linter..."
+	@npm run lint:fix

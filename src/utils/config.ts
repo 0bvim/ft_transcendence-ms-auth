@@ -1,5 +1,5 @@
 import dotenv from "dotenv";
-import { Config } from "../types/common.types";
+import type { Config } from "../types/common.types";
 
 // Load environment variables
 dotenv.config();

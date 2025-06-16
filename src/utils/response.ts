@@ -1,4 +1,4 @@
-import { ApiResponse, ErrorResponse } from "../types/common.types";
+import type { ApiResponse, ErrorResponse } from "../types/common.types";
 
 export const createSuccessResponse = <T>(
   message: string,

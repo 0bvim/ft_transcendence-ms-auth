@@ -35,6 +35,7 @@ export interface Config {
   port: number;
   nodeEnv: string;
   apiPrefix: string;
+  projectName: string;
   cors: {
     origin: string;
   };

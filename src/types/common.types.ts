@@ -42,8 +42,8 @@ export interface Config {
   jwt: {
     accessSecret: string;
     refreshSecret: string;
-    accessExpiresIn: string;
-    refreshExpiresIn: string;
+    accessExpiresIn: string | number;
+    refreshExpiresIn: string | number;
   };
   google: {
     clientId: string;

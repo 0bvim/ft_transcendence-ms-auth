@@ -14,6 +14,8 @@ const prismaPlugin: FastifyPluginAsync = async fastify => {
   fastify.addHook('onClose', async server => {
     await server.prisma.$disconnect();
   });
+
+  await Promise.resolve(); // Add await expression to satisfy async function requirement
 };
 
 export default fp(prismaPlugin);

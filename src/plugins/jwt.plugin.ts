@@ -4,7 +4,7 @@ import jwt from '@fastify/jwt';
 import { config } from '../utils/config';
 
 const jwtPlugin: FastifyPluginAsync = async fastify => {
-  fastify.register(jwt, {
+  await fastify.register(jwt, {
     secret: config.jwt.accessSecret,
   });
 };

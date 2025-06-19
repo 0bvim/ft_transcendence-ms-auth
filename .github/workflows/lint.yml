@@ -23,6 +23,8 @@ concurrency:
 
 jobs:
   lint:
+    permissions:
+      contents: read
     name: ESLint
     runs-on: ubuntu-latest
     timeout-minutes: 10

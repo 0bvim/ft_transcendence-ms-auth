@@ -94,7 +94,7 @@ export const authController = {
       try {
         // Verify the refresh token directly with the standard method
         await request.jwtVerify();
-      } catch (err) {
+      } catch {
         return reply.status(HTTP_STATUS.UNAUTHORIZED).send({ message: 'Invalid refresh token' });
       }
 

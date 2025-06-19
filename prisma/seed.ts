@@ -1,4 +1,3 @@
-// prisma/seed.ts
 import { PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 
@@ -9,7 +8,7 @@ async function main() {
 
   // Create a test user with email/password
   const hashedPassword = await bcrypt.hash('password123', 12);
-  
+
   const testUser = await prisma.user.upsert({
     where: { email: 'test@example.com' },
     update: {},
@@ -26,7 +25,7 @@ async function main() {
 
   // Create an admin user
   const adminPassword = await bcrypt.hash('admin123', 12);
-  
+
   const adminUser = await prisma.user.upsert({
     where: { email: 'admin@example.com' },
     update: {},
@@ -45,7 +44,7 @@ async function main() {
 }
 
 main()
-  .catch((e) => {
+  .catch(e => {
     console.error('❌ Error seeding database:', e);
     process.exit(1);
   })

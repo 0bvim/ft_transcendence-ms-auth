@@ -1,5 +1,5 @@
 import type { FastifyPluginAsync } from 'fastify';
-import type { FastifyRequest, FastifyReply } from 'fastify';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 import jwt from '@fastify/jwt';
 import { config } from '../utils/config';
@@ -19,7 +19,7 @@ const jwtPlugin: FastifyPluginAsync = async fastify => {
     async function (request: FastifyRequest, reply: FastifyReply) {
       try {
         return await request.jwtVerify();
-      } catch (err) {
+      } catch {
         reply.status(401).send({ message: 'Invalid access token' });
         return null;
       }

@@ -9,6 +9,7 @@ import type {
   RequestPasswordResetInput,
   ResetPasswordInput,
 } from '../schema/auth.schema';
+import type { JwtPayload } from '../types/jwt.types';
 import { createSuccessResponse, HTTP_STATUS } from '../utils/response';
 import { AppError } from '../utils/errors';
 
@@ -90,6 +91,14 @@ export const authController = {
       if (!currentRefreshToken) {
         return reply.status(HTTP_STATUS.UNAUTHORIZED).send({ message: 'Refresh token not found' });
       }
+
+      // Verify the refresh token using the custom decorator
+      const decoded = (await request.server.verifyRefreshToken(request, reply)) as JwtPayload;
+      if (!decoded) {
+        // If the decorator already sent a response, just return
+        return;
+      }
+
       const { accessToken } = await authService.refreshToken(currentRefreshToken);
       return reply
         .status(HTTP_STATUS.OK)

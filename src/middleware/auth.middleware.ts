@@ -3,12 +3,11 @@ import type { JwtPayload } from '../types/jwt.types';
 
 export const authenticate = async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
   try {
-    // Method added by the @fastify/jwt plugin
-    const decoded = await request.jwtVerify<JwtPayload>();
+    // Use the custom decorator for verifying access tokens
+    const decoded = (await request.server.verifyAccessToken(request, reply)) as JwtPayload;
 
-    // Ensure it's an access token
-    if (decoded.type !== 'access') {
-      reply.status(401).send({ message: 'Invalid token type' });
+    if (!decoded) {
+      // If the decorator already sent a response, just return
       return;
     }
 

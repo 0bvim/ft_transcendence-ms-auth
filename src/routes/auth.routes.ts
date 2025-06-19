@@ -1,4 +1,3 @@
-// src/routes/auth.routes.ts
 import type { FastifyInstance } from 'fastify';
 import { authController } from '../controllers/auth.controller';
 import { authenticate } from '../middleware/auth.middleware';

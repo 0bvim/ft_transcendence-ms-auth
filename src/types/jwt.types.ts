@@ -1,7 +1,7 @@
 export interface JwtPayload {
   userId: string;
   email: string;
-  type: "access" | "refresh";
+  type: 'access' | 'refresh';
   iat?: number; // Issued at
   exp?: number; // Expiration time
 }
@@ -19,9 +19,10 @@ export interface DecodedToken {
   exp: number; // Expiration time
 }
 
-declare module "fastify" {
-  interface FastifyRequest {
-    user?: {
+declare module '@fastify/jwt' {
+  interface FastifyJWT {
+    payload: JwtPayload;
+    user: {
       userId: string;
       email: string;
     };

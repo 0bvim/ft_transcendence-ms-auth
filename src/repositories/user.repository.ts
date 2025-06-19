@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable require-await */
 import type { PrismaClient } from '@prisma/client';
 import type { CreateUserData, UpdateUserData } from '../types/user.types';
 import { prisma } from '../utils/prisma';

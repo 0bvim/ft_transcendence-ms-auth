@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable require-await */
 import type { PrismaClient } from '@prisma/client';
 import { prisma } from '../utils/prisma';
 

@@ -37,3 +37,12 @@ lint:
 lint-fix:
 	@echo "Running linter..."
 	@npm run lint:fix
+
+.PHONY: start
+start: first_setup migrations
+	npm run start
+
+.PHONY: container
+container:
+	@echo "Running container..."
+	@docker compose up -d --build

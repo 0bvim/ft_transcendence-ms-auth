@@ -48,6 +48,8 @@ export interface Config {
   google: {
     clientId: string;
     clientSecret: string;
+    callbackUrl: string;
+    startUrl: string;
   };
   rateLimit: {
     max: number;

@@ -21,12 +21,6 @@ export const loginSchema = z.object({
   }),
 });
 
-export const googleAuthSchema = z.object({
-  body: z.object({
-    googleToken: z.string().min(1, 'Google token is required'),
-  }),
-});
-
 export const refreshTokenSchema = z.object({
   body: z.object({
     refreshToken: z.string().min(1, 'Refresh token is required'),
@@ -60,7 +54,6 @@ export const resetPasswordSchema = z.object({
 // Define TypeScript types from the Zod schemas
 export type RegisterInput = z.infer<typeof registerSchema>['body'];
 export type LoginInput = z.infer<typeof loginSchema>['body'];
-export type GoogleAuthInput = z.infer<typeof googleAuthSchema>['body'];
 export type RefreshTokenInput = z.infer<typeof refreshTokenSchema>['body'];
 export type LogoutInput = z.infer<typeof logoutSchema>['body'];
 export type RequestPasswordResetInput = z.infer<typeof requestPasswordResetSchema>['body'];

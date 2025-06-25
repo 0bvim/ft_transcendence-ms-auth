@@ -5,7 +5,7 @@ import type { PasswordResetRepository } from '../repositories/password-reset.rep
 import type { RefreshTokenRepository } from '../repositories/refresh-token.repository';
 import type { JwtService } from './jwt.services';
 import type { GoogleService } from './google.service';
-import type { GoogleAuthInput, LoginInput, RegisterInput } from '../schema/auth.schema';
+import type { LoginInput, RegisterInput } from '../schema/auth.schema';
 import type { AuthResponse } from '../types/auth.types';
 import { userRepository } from '../repositories/user.repository';
 import { passwordResetRepository } from '../repositories/password-reset.repository';

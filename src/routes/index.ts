@@ -8,5 +8,10 @@ export async function apiRoutes(fastify: FastifyInstance): Promise<void> {
   fastify.register(userRoutes, { prefix: '/users' });
 
   // Health check route
-  fastify.get('/health', async () => ({ status: 'ok', timestamp: new Date().toISOString() }));
+  fastify.get('/health', async () => ({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    version: process.env.npm_package_version,
+    service: process.env.PROJECT_NAME || 'Set PROJECT_NAME in .env',
+  }));
 }

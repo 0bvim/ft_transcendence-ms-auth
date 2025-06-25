@@ -11,5 +11,11 @@ COPY ./tests ./tests
 COPY Makefile Makefile
 COPY .env .env
 
+FROM build AS development
+
 # CMD ["tail", "-f", "/dev/null"]
-CMD ["make", "start"]
+CMD ["make", "dev"]
+
+FROM build AS prod
+
+CMD ["make", "prod"]

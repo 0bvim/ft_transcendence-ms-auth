@@ -2,7 +2,6 @@
 import type { FastifyReply, FastifyRequest } from 'fastify';
 import { authService } from '../services/auth.service';
 import type {
-  GoogleAuthInput,
   LoginInput,
   RegisterInput,
   RequestPasswordResetInput,

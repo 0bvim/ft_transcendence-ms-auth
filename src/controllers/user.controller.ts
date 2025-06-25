@@ -1,6 +1,5 @@
 // src/controllers/user.controller.ts
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import '../types/cookie.types';
 import { userRepository } from '../repositories/user.repository';
 import { createSuccessResponse, HTTP_STATUS } from '../utils/response';
 import { NotFoundError } from '../utils/errors';

@@ -1,6 +1,5 @@
 // import type { FastifyReply, FastifyRequest } from 'fastify';
 import type { FastifyReply, FastifyRequest } from 'fastify';
-import '../types/cookie.types';
 import { authService } from '../services/auth.service';
 import type {
   GoogleAuthInput,

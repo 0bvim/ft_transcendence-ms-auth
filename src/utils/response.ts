@@ -1,9 +1,6 @@
-import type { ApiResponse, ErrorResponse } from "../types/common.types";
+import type { ApiResponse, ErrorResponse } from '../types/common.types';
 
-export const createSuccessResponse = <T>(
-  message: string,
-  data?: T,
-): ApiResponse<T> => ({
+export const createSuccessResponse = <T>(message: string, data?: T): ApiResponse<T> => ({
   success: true,
   message,
   data,
@@ -12,7 +9,7 @@ export const createSuccessResponse = <T>(
 export const createErrorResponse = (
   message: string,
   error?: string,
-  statusCode?: number,
+  statusCode?: number
 ): ErrorResponse => ({
   success: false,
   message,

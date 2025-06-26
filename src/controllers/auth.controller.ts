@@ -62,25 +62,25 @@ export const authController = {
     }
   },
 
-  async googleAuth(request: FastifyRequest<{ Body: GoogleAuthInput }>, reply: FastifyReply) {
-    try {
-      const authResponse = await authService.googleAuth(request.body);
-      setRefreshTokenCookie(reply, authResponse.tokens.refreshToken);
-      return reply.status(HTTP_STATUS.OK).send(
-        createSuccessResponse('Google authentication successful', {
-          user: authResponse.user,
-          accessToken: authResponse.tokens.accessToken,
-        })
-      );
-    } catch (error) {
-      if (error instanceof AppError) {
-        return reply.status(error.statusCode).send({ message: error.message });
-      }
-      return reply
-        .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
-        .send({ message: 'An unexpected error occurred' });
-    }
-  },
+  // async googleAuth(request: FastifyRequest<>, reply: FastifyReply) {
+  //   try {
+  //     const authResponse = await authService.googleAuth(request.body);
+  //     setRefreshTokenCookie(reply, authResponse.tokens.refreshToken);
+  //     return reply.status(HTTP_STATUS.OK).send(
+  //       createSuccessResponse('Google authentication successful', {
+  //         user: authResponse.user,
+  //         accessToken: authResponse.tokens.accessToken,
+  //       })
+  //     );
+  //   } catch (error) {
+  //     if (error instanceof AppError) {
+  //       return reply.status(error.statusCode).send({ message: error.message });
+  //     }
+  //     return reply
+  //       .status(HTTP_STATUS.INTERNAL_SERVER_ERROR)
+  //       .send({ message: 'An unexpected error occurred' });
+  //   }
+  // },
 
   async refreshToken(request: FastifyRequest, reply: FastifyReply) {
     try {

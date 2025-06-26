@@ -4,7 +4,6 @@ import type { UserRepository } from '../repositories/user.repository';
 import type { PasswordResetRepository } from '../repositories/password-reset.repository';
 import type { RefreshTokenRepository } from '../repositories/refresh-token.repository';
 import type { JwtService } from './jwt.services';
-import type { GoogleService } from './google.service';
 import type { LoginInput, RegisterInput } from '../schema/auth.schema';
 import type { AuthResponse } from '../types/auth.types';
 import { userRepository } from '../repositories/user.repository';
@@ -12,7 +11,6 @@ import { passwordResetRepository } from '../repositories/password-reset.reposito
 import { refreshTokenRepository } from '../repositories/refresh-token.repository';
 import { comparePassword, hashPassword } from '../utils/bcrypt';
 import { jwtService } from './jwt.services';
-import { googleService } from './google.service';
 import { ConflictError, NotFoundError, UnauthorizedError } from '../utils/errors';
 import logger from '../utils/logger';
 
@@ -21,8 +19,7 @@ export class AuthService {
     private userRepo: UserRepository,
     private refreshTokenRepo: RefreshTokenRepository,
     private passwordResetRepo: PasswordResetRepository,
-    private jwtService: JwtService,
-    private googleService: GoogleService
+    private jwtService: JwtService
   ) {}
 
   async register(data: RegisterInput): Promise<AuthResponse> {
@@ -71,40 +68,40 @@ export class AuthService {
     return this.generateAuthResponse(user);
   }
 
-  async googleAuth(data: GoogleAuthInput): Promise<AuthResponse> {
-    // Verify Google token
-    const googleUser = await this.googleService.verifyToken(data.googleToken);
-    if (!googleUser.email || !googleUser.name || !googleUser.sub) {
-      throw new UnauthorizedError('Invalid Google token payload');
-    }
+  // async googleAuth(): Promise<AuthResponse> {
+  //   // Verify Google token
+  //   const googleUser = await this.googleService.verifyToken(data.googleToken);
+  //   if (!googleUser.email || !googleUser.name || !googleUser.sub) {
+  //     throw new UnauthorizedError('Invalid Google token payload');
+  //   }
 
-    // Find or create user
-    let user = await this.userRepo.findByGoogleId(googleUser.sub);
-    if (!user) {
-      // NOTE: If no user with this googleId, check if an account with this email exists
-      const existingUser = await this.userRepo.findByEmail(googleUser.email);
-      if (existingUser) {
-        // NOTE: Link Google account to existing user
-        user = await this.userRepo.update(existingUser.id, {
-          googleId: googleUser.sub,
-          avatar: googleUser.picture,
-          isVerified: true,
-        });
-      } else {
-        // NOTE: Create a new user
-        user = await this.userRepo.create({
-          email: googleUser.email,
-          name: googleUser.name,
-          googleId: googleUser.sub,
-          avatar: googleUser.picture,
-          isVerified: true,
-        });
-      }
-    }
+  //   // Find or create user
+  //   let user = await this.userRepo.findByGoogleId(googleUser.sub);
+  //   if (!user) {
+  //     // NOTE: If no user with this googleId, check if an account with this email exists
+  //     const existingUser = await this.userRepo.findByEmail(googleUser.email);
+  //     if (existingUser) {
+  //       // NOTE: Link Google account to existing user
+  //       user = await this.userRepo.update(existingUser.id, {
+  //         googleId: googleUser.sub,
+  //         avatar: googleUser.picture,
+  //         isVerified: true,
+  //       });
+  //     } else {
+  //       // NOTE: Create a new user
+  //       user = await this.userRepo.create({
+  //         email: googleUser.email,
+  //         name: googleUser.name,
+  //         googleId: googleUser.sub,
+  //         avatar: googleUser.picture,
+  //         isVerified: true,
+  //       });
+  //     }
+  //   }
 
-    // Generate tokens and format response
-    return this.generateAuthResponse(user);
-  }
+  //   // Generate tokens and format response
+  //   return this.generateAuthResponse(user);
+  // }
 
   async refreshToken(token: string): Promise<{ accessToken: string }> {
     // Verify refresh token from DB
@@ -193,6 +190,6 @@ export const authService = new AuthService(
   userRepository,
   refreshTokenRepository,
   passwordResetRepository,
-  jwtService,
-  googleService
+  jwtService
+  // googleService
 );

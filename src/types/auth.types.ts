@@ -10,10 +10,6 @@ export interface RegisterRequest {
   nickname?: string;
 }
 
-export interface GoogleAuthRequest {
-  googleToken: string;
-}
-
 export interface AuthResponse {
   user: {
     id: string;

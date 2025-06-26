@@ -37,3 +37,26 @@ lint:
 lint-fix:
 	@echo "Running linter..."
 	@npm run lint:fix
+
+.PHONY: start
+start: first_setup migrations
+	npm run start
+
+.PHONY: dev
+dev: first_setup migrations
+	npm run dev
+
+.PHONY: container
+container:
+	@echo "Running container..."
+	@docker compose up -d --build
+
+.PHONY: container-down
+container-down:
+	@echo "Running container..."
+	@docker compose down
+
+.PHONY: dev-container
+dev-container:
+	@echo "Running container..."
+	@docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d --build

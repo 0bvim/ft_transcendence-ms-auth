@@ -29,16 +29,6 @@ export async function authRoutes(fastify: FastifyInstance) {
     },
   };
 
-  const googleAuthJsonSchema = {
-    body: {
-      type: 'object',
-      required: ['googleToken'],
-      properties: {
-        googleToken: { type: 'string', minLength: 1 },
-      },
-    },
-  };
-
   const refreshTokenJsonSchema = {
     body: {
       type: 'object',
@@ -69,11 +59,11 @@ export async function authRoutes(fastify: FastifyInstance) {
     },
   };
 
+  fastify.get('/google/callback', authController.login);
+
   fastify.post('/register', { schema: registerJsonSchema }, authController.register);
 
   fastify.post('/login', { schema: loginJsonSchema }, authController.login);
-
-  fastify.post('/google', { schema: googleAuthJsonSchema }, authController.googleAuth);
 
   fastify.post('/refresh', { schema: refreshTokenJsonSchema }, authController.refreshToken);
 

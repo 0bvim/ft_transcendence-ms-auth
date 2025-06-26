@@ -73,7 +73,13 @@ export async function authRoutes(fastify: FastifyInstance) {
 
   fastify.post('/login', { schema: loginJsonSchema }, authController.login);
 
-  fastify.post('/google', { schema: googleAuthJsonSchema }, authController.googleAuth);
+  fastify.post('login/google', { schema: googleAuthJsonSchema }, authController.googleAuth);
+
+  fastify.post(
+    '/login/google/callback',
+    { schema: googleAuthJsonSchema },
+    authController.googleAuth
+  );
 
   fastify.post('/refresh', { schema: refreshTokenJsonSchema }, authController.refreshToken);
 

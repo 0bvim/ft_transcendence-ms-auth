@@ -60,3 +60,13 @@ container-down:
 dev-container:
 	@echo "Running container..."
 	@docker compose -f docker-compose.yaml -f docker-compose.dev.yaml up -d --build
+
+.PHONY: test
+test:
+	@echo "Running tests..."
+	@npm run test
+
+.PHONY: test-coverage
+test-coverage:
+	@echo "Running tests..."
+	@npm run test:coverage

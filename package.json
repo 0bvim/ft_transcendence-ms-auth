@@ -7,7 +7,7 @@
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "lint": "eslint src/**/*.ts",
     "test": "vitest",
-    "test:cov": "vitest ./src/**/*.ts --coverage"
+    "coverage": "vitest ./src/**/*.ts --coverage"
   },
   "keywords": [],
   "author": "",

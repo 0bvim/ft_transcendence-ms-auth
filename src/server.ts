@@ -1,16 +1,35 @@
 import fastify from "fastify";
+import { appRoutes } from "./http/routes";
+import { ZodError } from "zod";
+import dotenv from "dotenv";
 
-const server = fastify({ logger: true });
+dotenv.config();
 
-server.get("/", async (request, reply) => {
-  return { status: "ok" };
+const app = fastify({ logger: true });
+
+app.register(appRoutes);
+
+app.setErrorHandler((error, request, reply) => {
+  if (error instanceof ZodError) {
+    // when error come from Zod, it's a validation error
+    return reply
+      .status(400)
+      .send({ message: "Validation error", issues: error.format() });
+  }
+
+  // For other errors, we log them and return a generic error message
+  app.log.error(error);
+
+  return reply.status(500).send({ message: "Internal Server error." });
 });
 
 const start = async () => {
   try {
-    await server.listen({ port: 3000 });
+    await app.listen({
+      port: process.env.PORT ? Number(process.env.PORT) : 4242,
+    });
   } catch (err) {
-    server.log.error(err);
+    app.log.error(err);
     process.exit(1);
   }
 };

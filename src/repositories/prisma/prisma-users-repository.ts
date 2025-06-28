@@ -19,6 +19,8 @@ export class PrismaUsersRepository implements UsersRepository {
         username,
       },
     });
+
+    return user;
   }
 
   async create(data: Prisma.UserCreateInput) {

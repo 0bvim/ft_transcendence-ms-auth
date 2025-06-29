@@ -1,9 +1,7 @@
 import fastify from "fastify";
 import { appRoutes } from "./http/routes";
 import { ZodError } from "zod";
-import dotenv from "dotenv";
-
-dotenv.config();
+import { env } from "./env";
 
 const app = fastify({ logger: true });
 
@@ -26,7 +24,7 @@ app.setErrorHandler((error, request, reply) => {
 const start = async () => {
   try {
     await app.listen({
-      port: process.env.PORT ? Number(process.env.PORT) : 4242,
+      port: env.PORT ? Number(process.env.PORT) : 4242,
     });
   } catch (err) {
     app.log.error(err);

@@ -22,7 +22,7 @@ describe("Authenticate Use Case", () => {
       refreshTokensRepository,
     );
 
-    // Test
+    // create a user for testing
     await usersRepository.create({
       username: "johndoe",
       email: "johndoe@example.com",

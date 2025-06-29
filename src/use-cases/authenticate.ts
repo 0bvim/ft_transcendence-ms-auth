@@ -5,6 +5,7 @@ import { InvalidCredentialsError } from "./errors/invalid-credentials-error";
 import { sign } from "jsonwebtoken";
 import { env } from "../env";
 import { createHash, randomBytes } from "node:crypto";
+import { User } from "@prisma/client";
 
 interface AuthenticateUseCaseRequest {
   login: string;
@@ -12,6 +13,7 @@ interface AuthenticateUseCaseRequest {
 }
 
 interface AuthenticateUseCaseResponse {
+  user: User;
   accessToken: string;
   refreshToken: string;
 }
@@ -61,6 +63,7 @@ export class AuthenticateUseCase {
     });
 
     return {
+      user,
       accessToken,
       refreshToken: clearRefreshToken,
     };

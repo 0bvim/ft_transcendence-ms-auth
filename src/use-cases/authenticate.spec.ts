@@ -31,11 +31,13 @@ describe("Authenticate Use Case", () => {
   });
 
   it("should be able to authenticate", async () => {
-    const { accessToken, refreshToken } = await authenticateUseCase.execute({
-      login: "johndoe@example.com",
-      password: "password123",
-    });
+    const { accessToken, refreshToken, user } =
+      await authenticateUseCase.execute({
+        login: "johndoe@example.com",
+        password: "password123",
+      });
 
+    expect(user.id).toEqual(expect.any(String));
     expect(accessToken).toEqual(expect.any(String));
     expect(refreshToken).toEqual(expect.any(String));
   });

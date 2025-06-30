@@ -5,6 +5,7 @@ import { UsersRepository } from "../repositories/users-repository";
 import { RefreshTokensRepository } from "../repositories/refresh-tokens-repository";
 import { InvalidRefreshTokenError } from "./errors/invalid-refresh-token-error";
 import { env } from "../env";
+import { randomBytes } from "node:crypto";
 
 interface RefreshTokenUseCaseRequest {
   token: string;
@@ -58,9 +59,7 @@ export class RefreshTokenUseCase {
     });
 
     // 2. New Refresh Token
-    const newRefreshToken = require("node:crypto")
-      .randomBytes(32)
-      .toString("hex");
+    const newRefreshToken = randomBytes(32).toString("hex");
     const hashedNewRefreshToken = createHash("sha256")
       .update(newRefreshToken)
       .digest("hex");

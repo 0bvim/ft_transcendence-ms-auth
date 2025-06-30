@@ -12,6 +12,7 @@ export class InMemoryRefreshTokensRepository
       id: randomUUID(),
       hashedToken: data.hashedToken,
       userId: data.userId,
+      expiresAt: data.expiresAt as Date,
       revoked: false,
       createdAt: new Date(),
     };

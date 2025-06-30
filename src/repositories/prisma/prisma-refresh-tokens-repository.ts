@@ -10,4 +10,28 @@ export class PrismaRefreshTokensRepository implements RefreshTokensRepository {
 
     return refreshToken;
   }
+
+  async findByToken(hashedToken: string) {
+    const refreshToken = await prisma.refreshToken.findFirst({
+      where: {
+        hashedToken,
+        revoked: false,
+      },
+    });
+
+    return refreshToken || null;
+  }
+
+  async revoke(id: string) {
+    const refreshToken = await prisma.refreshToken.update({
+      where: {
+        id,
+      },
+      data: {
+        revoked: true,
+      },
+    });
+
+    return refreshToken;
+  }
 }

@@ -6,6 +6,7 @@ import { sign } from "jsonwebtoken";
 import { env } from "../env";
 import { createHash, randomBytes } from "node:crypto";
 import { User } from "@prisma/client";
+import dayjs from "dayjs";
 
 interface AuthenticateUseCaseRequest {
   login: string;
@@ -57,9 +58,11 @@ export class AuthenticateUseCase {
       .update(clearRefreshToken)
       .digest("hex");
 
+    const refreshTokenExpiresAt = dayjs().add(30, "day").toDate();
     await this.refreshTokensRepository.create({
       userId: user.id,
       hashedToken: hashedRefreshToken,
+      expiresAt: refreshTokenExpiresAt,
     });
 
     return {

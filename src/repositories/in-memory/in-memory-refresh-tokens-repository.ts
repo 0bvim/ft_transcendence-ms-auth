@@ -20,4 +20,17 @@ export class InMemoryRefreshTokensRepository
 
     return refreshToken;
   }
+
+  async findByToken(hashedToken: string) {
+    const refreshToken = this.items.find(
+      (item) => item.hashedToken === hashedToken && !item.revoked,
+    );
+    return refreshToken || null;
+  }
+
+  async revoke(id: string) {
+    const tokenIndex = this.items.findIndex((item) => item.id === id);
+    this.items[tokenIndex].revoked = true;
+    return this.items[tokenIndex];
+  }
 }

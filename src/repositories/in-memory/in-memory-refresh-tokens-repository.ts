@@ -43,4 +43,12 @@ export class InMemoryRefreshTokensRepository
 
     return token;
   }
+
+  async revokeAllForUser(userId: string): Promise<void> {
+    this.items.forEach((token) => {
+      if (token.userId === userId && !token.revoked) {
+        token.revoked = true;
+      }
+    });
+  }
 }

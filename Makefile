@@ -6,7 +6,7 @@ all:
 .PHONY: studio
 studio:
 	@echo "Running prisma studio on web browser..."
-	@npm run db:studio
+	@npx prisma studio
 
 # if clone this repo for the first time, run this command to set up the project
 .PHONY: first_setup
@@ -21,6 +21,16 @@ first_setup:
 migrations:
 	@echo "Running migrations..."
 	@npm run db:migrate
+
+.PHONY: db_push
+db_push:
+	@echo "Pushing database..."
+	@npx prisma db push
+
+.PHONY: db_generate
+db_generate:
+	@echo "Generating database..."
+	@npx prisma generate
 
 # generate migration files based on prisma schema changes
 .PHONY: gen-migrate-files

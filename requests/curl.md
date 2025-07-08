@@ -39,3 +39,8 @@ http://localhost:3000/refresh
 
 # try again with the first token to see if it fails (cuz it is expired)
 ```
+
+```bash
+# delete user
+curl -X DELETE http://localhost:3000/delete/{:id}
+```

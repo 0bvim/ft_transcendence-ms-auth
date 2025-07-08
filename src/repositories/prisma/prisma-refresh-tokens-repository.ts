@@ -34,4 +34,16 @@ export class PrismaRefreshTokensRepository implements RefreshTokensRepository {
 
     return refreshToken;
   }
+
+  async revokeAllForUser(userId: string) {
+    await prisma.refreshToken.updateMany({
+      where: {
+        userId,
+        revoked: false,
+      },
+      data: {
+        revoked: true,
+      },
+    });
+  }
 }

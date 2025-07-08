@@ -10,4 +10,3 @@ services:
     volumes:
       - ./prisma/auth.db:/app/prisma/auth.db
       - ./src:/app/src
-      - ./tests:/app/tests

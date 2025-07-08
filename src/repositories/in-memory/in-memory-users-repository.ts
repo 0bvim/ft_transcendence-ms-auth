@@ -1,6 +1,8 @@
 import { Prisma, User } from "@prisma/client";
 import { UsersRepository } from "../users-repository";
 import { randomUUID } from "node:crypto";
+import { UserNotFoundError } from "../../use-cases/errors/user-not-found-error";
+import { UserAlreadyDeletedError } from "../../use-cases/errors/user-already-deleted-error";
 
 export class InMemoryUsersRepository implements UsersRepository {
   // This array is our in-memory database
@@ -35,5 +37,27 @@ export class InMemoryUsersRepository implements UsersRepository {
 
     this.items.push(user);
     return user;
+  }
+
+  async softDelete(id: string) {
+    const userIndex = this.items.findIndex((item) => item.id === id);
+    
+    if (userIndex === -1) {
+      throw new UserNotFoundError();
+    }
+
+    const user = this.items[userIndex];
+    
+    if (user.deletedAt) {
+      throw new UserAlreadyDeletedError();
+    }
+
+    this.items[userIndex] = {
+      ...user,
+      deletedAt: new Date(),
+      updatedAt: new Date(),
+    };
+
+    return this.items[userIndex];
   }
 }

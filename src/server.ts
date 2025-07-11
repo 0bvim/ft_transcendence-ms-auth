@@ -5,6 +5,18 @@ import { env } from "./env";
 
 const app = fastify({ logger: true });
 
+// Register CORS plugin
+app.register(require('@fastify/cors'), {
+  origin: [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://localhost:3001',
+    'http://127.0.0.1:3001'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH']
+});
+
 app.register(appRoutes);
 
 app.setErrorHandler((error, request, reply) => {
@@ -25,6 +37,7 @@ const start = async () => {
   try {
     await app.listen({
       port: env.PORT ? Number(process.env.PORT) : 4242,
+      host: '0.0.0.0'
     });
   } catch (err) {
     app.log.error(err);
